@@ -6,6 +6,16 @@ function App() {
   const [anomalies, setAnomalies] = useState([]);
   const [adaptiveStatus, setAdaptiveStatus] = useState(null);
   const [message, setMessage] = useState("");
+  const [analysis, setAnalysis] = useState(null);
+
+const [form, setForm] = useState({
+  amount: "",
+  distance_from_home: "",
+  ip_risk_score: "",
+  avg_spending_habit: "",
+  is_weekend: 0,
+  is_night_transaction: 0,
+});
 
   const API = "http://127.0.0.1:8000";
 
@@ -56,7 +66,38 @@ async function submitFeedback(transactionId, label) {
     setMessage("Could not submit feedback.");
   }
 }
+async function analyzeTransaction(e) {
+  e.preventDefault();
 
+  try {
+    const params = new URLSearchParams({
+      amount: form.amount,
+      distance_from_home: form.distance_from_home,
+      ip_risk_score: form.ip_risk_score,
+      avg_spending_habit: form.avg_spending_habit,
+      is_weekend: form.is_weekend,
+      is_night_transaction: form.is_night_transaction,
+    });
+
+    const response = await fetch(
+      `${API}/analyze?${params.toString()}`,
+      {
+        method: "POST",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    const data = await response.json();
+
+    setAnalysis(data);
+    setMessage("Transaction analyzed successfully.");
+  } catch {
+    setMessage("Could not analyze transaction.");
+  }
+}
   return (
     <div className="app">
 
@@ -104,7 +145,110 @@ async function submitFeedback(transactionId, label) {
 </div>
 
       </section>
+<section className="panel">
 
+  <h2>Analyze New Transaction</h2>
+
+  <form onSubmit={analyzeTransaction}>
+
+    <input
+      type="number"
+      placeholder="Transaction Amount"
+      value={form.amount}
+      onChange={(e) =>
+        setForm({ ...form, amount: e.target.value })
+      }
+      required
+    />
+
+    <input
+      type="number"
+      placeholder="Distance From Home"
+      value={form.distance_from_home}
+      onChange={(e) =>
+        setForm({
+          ...form,
+          distance_from_home: e.target.value,
+        })
+      }
+      required
+    />
+
+    <input
+      type="number"
+      placeholder="IP Risk Score (0-100)"
+      value={form.ip_risk_score}
+      onChange={(e) =>
+        setForm({
+          ...form,
+          ip_risk_score: e.target.value,
+        })
+      }
+      required
+    />
+
+    <input
+      type="number"
+      placeholder="Average Spending Habit"
+      value={form.avg_spending_habit}
+      onChange={(e) =>
+        setForm({
+          ...form,
+          avg_spending_habit: e.target.value,
+        })
+      }
+      required
+    />
+
+    <label>
+      <input
+        type="checkbox"
+        onChange={(e) =>
+          setForm({
+            ...form,
+            is_weekend: e.target.checked ? 1 : 0,
+          })
+        }
+      />
+      Weekend Transaction
+    </label>
+
+    <label>
+      <input
+        type="checkbox"
+        onChange={(e) =>
+          setForm({
+            ...form,
+            is_night_transaction: e.target.checked ? 1 : 0,
+          })
+        }
+      />
+      Night Transaction
+    </label>
+
+    <button type="submit">
+      Analyze Transaction
+    </button>
+
+  </form>
+
+  {analysis && (
+    <div className="analysis-result">
+
+      <h3>Analysis Result</h3>
+
+      <p>
+        Risk Score: <strong>{analysis.risk_score}</strong>
+      </p>
+
+      <p>
+        Risk Level: <strong>{analysis.risk_level}</strong>
+      </p>
+
+    </div>
+  )}
+
+</section>
       <section className="panel">
 
         <h2>Detected Anomalies</h2>

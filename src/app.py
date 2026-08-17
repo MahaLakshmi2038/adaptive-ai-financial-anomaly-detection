@@ -223,3 +223,41 @@ def adaptive_status():
         "risk_threshold": result[0] if result else 40,
         "feedback_count": feedback_count
     }
+@app.post("/analyze")
+def analyze_transaction(
+    amount: float,
+    distance_from_home: float,
+    ip_risk_score: float,
+    avg_spending_habit: float,
+    is_weekend: int,
+    is_night_transaction: int
+):
+    # Simple behavioral risk calculation
+    risk_score = 0
+
+    if amount > avg_spending_habit * 2:
+        risk_score += 30
+
+    if distance_from_home > 50:
+        risk_score += 20
+
+    if ip_risk_score > 70:
+        risk_score += 25
+
+    if is_weekend == 1:
+        risk_score += 10
+
+    if is_night_transaction == 1:
+        risk_score += 15
+
+    if risk_score >= 60:
+        risk_level = "High Risk"
+    elif risk_score >= 40:
+        risk_level = "Suspicious"
+    else:
+        risk_level = "Normal"
+
+    return {
+        "risk_score": risk_score,
+        "risk_level": risk_level
+    }
