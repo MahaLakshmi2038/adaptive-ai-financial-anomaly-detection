@@ -4,9 +4,9 @@
 
 | Name | ID Number |
 |---|---|
-| MahaLakshmi | 2420030313 |
-| Sreehitha | 2420030410 |
-| Lahari | 2420030055 |
+| P.Sri MahaLakshmi | 2420030313 |
+| P.Sreehitha | 2420030410 |
+| A.Lahari | 2420030055 |
 
 ## Supervisor
 
