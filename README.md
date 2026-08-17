@@ -10,7 +10,7 @@
 
 ## Supervisor
 
-[Supervisor Name]
+Anuga Swapna
 
 ---
 
