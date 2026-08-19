@@ -1,91 +1,124 @@
 # Adaptive AI-Based Financial Anomaly Detection System for SMEs
 
-## Team Members
+## Project Overview
 
-| Name | ID Number |
-|---|---|
-| P.Sri MahaLakshmi | 2420030313 |
-| P.Sreehitha | 2420030410 |
-| A.Lahari | 2420030055 |
+The Adaptive AI-Based Financial Anomaly Detection System is an intelligent financial monitoring solution designed to help Small and Medium-sized Enterprises (SMEs) identify suspicious and anomalous transactions.
 
-## Supervisor
+The system combines automated anomaly detection, risk scoring, SQLite-based transaction storage, a FastAPI backend, a React dashboard, and administrator feedback.
 
-Anuga Swapna
-
----
-
-## Abstract
-
-Small and Medium Enterprises (SMEs) increasingly conduct their operations through digital transactions but rarely have access to enterprise-grade fraud and anomaly detection tools, leaving irregular cash flow, invoicing, and payment activity largely unmonitored. This project proposes a web-based Adaptive AI-Based Financial Anomaly Detection System that combines machine learning with statistical and behavioral analysis to flag unusual SME financial transactions. Its central objective is to build an SME-specific behavioral baseline that reflects the normal transaction patterns of an individual business rather than applying generic, one-size-fits-all thresholds. Anomaly scoring uses a hybrid methodology that integrates the Isolation Forest algorithm (via Scikit-learn) with statistical measures computed using Pandas and NumPy, allowing the system to identify both isolated outlier transactions and gradual behavioural drift. The core novelty of the work is its feedback-driven adaptation mechanism: administrators review flagged anomalies and label them as genuine or false positives, and this feedback is used to progressively refine the SME’s baseline and improve detection quality over time. As an Adaptive Software Engineering project, development follows an Agile methodology, with Jira used to manage the product backlog, user stories, sprint planning, and task and bug tracking across iterations. The system is implemented with a React.js frontend and a Python FastAPI backend, with transaction and feedback data stored in an SQLite database, Postman used for API testing, and Git/GitHub used for version control. The expected outcome is a working prototype that demonstrates more business-specific and adaptive anomaly detection than static rule-based approaches, giving SME administrators an interpretable tool for monitoring financial irregularities within a short academic development timeframe.
+Unlike a static detection system, the proposed solution includes an adaptive feedback mechanism that allows the risk detection threshold to change based on administrator feedback.
 
 ---
 
 ## Problem Statement
 
-Small and Medium Enterprises generate a large volume of digital financial transactions but may not have access to advanced anomaly detection systems. Static rule-based approaches often use fixed thresholds that may not reflect the normal financial behaviour of different businesses.
+Financial fraud and anomalous transactions can cause significant financial losses for SMEs. Traditional rule-based systems often use fixed thresholds and may generate excessive false positives or fail to adapt when transaction behavior changes.
 
-This project aims to develop an adaptive system that learns the transaction behaviour of an individual SME and identifies transactions that significantly deviate from its established behavioural patterns.
+The proposed system addresses this problem by combining automated transaction analysis with administrator feedback to create a more adaptive financial anomaly detection process.
 
 ---
 
 ## Objectives
 
-- Detect unusual SME financial transactions using machine learning.
-- Establish an SME-specific behavioural baseline.
-- Combine machine learning with statistical and behavioural analysis.
-- Generate an anomaly/risk score for transactions.
-- Classify transactions based on risk level.
-- Provide feedback-based adaptation.
-- Provide an accessible dashboard for monitoring detected anomalies.
+The main objectives of the project are:
+
+1. Detect suspicious financial transactions.
+2. Generate risk scores for transactions.
+3. Classify transactions according to risk level.
+4. Provide a dashboard for monitoring detected anomalies.
+5. Store transaction and feedback information using SQLite.
+6. Allow administrators to provide feedback on detected anomalies.
+7. Adapt the risk threshold based on administrator feedback.
+8. Provide REST APIs for system integration.
+9. Provide a simple interface for analyzing individual transactions.
+10. Support continuous improvement of financial monitoring.
 
 ---
 
 ## Key Features
 
-- SME-specific behavioural baseline
-- AI-based anomaly detection using Isolation Forest
-- Hybrid machine learning and statistical anomaly scoring
-- Normal, Suspicious, and High Risk classification
-- Administrator feedback on detected anomalies
-- Feedback-driven adaptive detection
-- Financial anomaly monitoring dashboard
+### 1. Financial Anomaly Detection
+
+The system analyzes transaction characteristics and identifies unusual financial behavior.
+
+### 2. Risk Scoring
+
+Transactions receive risk scores that are used to classify them into different risk levels.
+
+### 3. Adaptive Feedback
+
+Administrators can classify detected transactions as:
+
+- Genuine Anomaly
+- False Positive
+
+The feedback is used to update the system's adaptive configuration.
+
+### 4. Adaptive Threshold
+
+The system maintains a risk threshold that can change based on administrator feedback.
+
+During testing:
+
+- Previous threshold: 40
+- Updated threshold: 45
+
+### 5. SQLite Database
+
+Transaction results, administrator feedback, and adaptive configuration are stored using SQLite.
+
+### 6. FastAPI Backend
+
+The backend exposes REST APIs for communication between the database, detection system, and frontend.
+
+### 7. React Dashboard
+
+The dashboard displays:
+
+- Total transactions
+- Normal transactions
+- Suspicious transactions
+- High-risk transactions
+- Adaptive threshold
+- Administrator feedback count
+- Detected anomalies
+- Risk distribution
+- Transaction analysis
+
+### 8. Swagger API Documentation
+
+FastAPI automatically provides interactive Swagger documentation for testing the backend APIs.
 
 ---
 
-## Novelty
-
-### 1. SME-Specific Adaptive Behavioural Baseline
-The system learns the normal transaction behaviour of an individual SME instead of applying the same fixed thresholds to every business.
-
-### 2. Hybrid Anomaly Detection
-Machine-learning-based detection is combined with statistical and behavioural analysis to generate a more meaningful anomaly score.
-
-### 3. Feedback-Driven Adaptation
-Administrator feedback on detected anomalies is stored and used to refine the SME-specific behavioural baseline and improve future detection.
-
----
-
-## Methodology
+## System Architecture
 
 ```text
-Financial Transaction Data
-            ↓
-     Data Preprocessing
-            ↓
-      Feature Engineering
-            ↓
- SME Behavioural Baseline
-            ↓
- Isolation Forest + Statistical Analysis
-            ↓
-       Anomaly Score
-            ↓
-    Risk Classification
-            ↓
- Normal / Suspicious / High Risk
-            ↓
- Administrator Feedback
-            ↓
-    Adaptive Update
-            ↓
- Improved Future Detection
+                    Financial Dataset
+                           |
+                           v
+                Data Validation
+                           |
+                           v
+              Anomaly Detection
+                           |
+                           v
+                 Risk Scoring
+                           |
+                           v
+                  SQLite Database
+                           |
+                           v
+                   FastAPI Backend
+                           |
+                           v
+                  React Dashboard
+                           |
+                    Administrator
+                       Feedback
+                           |
+                           v
+              Adaptive Feedback Engine
+                           |
+                           v
+                Updated Risk Threshold
