@@ -145,6 +145,53 @@ async function analyzeTransaction(e) {
 </div>
 
       </section>
+      <section className="panel">
+  <h2>Risk Distribution</h2>
+
+  <div className="risk-chart">
+    <div className="risk-bar">
+      <span>Normal</span>
+      <div
+        className="bar normal"
+        style={{
+          width: `${summary
+            ? (summary.normal / summary.total_transactions) * 100
+            : 0}%`,
+        }}
+      >
+        {summary?.normal ?? 0}
+      </div>
+    </div>
+
+    <div className="risk-bar">
+      <span>Suspicious</span>
+      <div
+        className="bar suspicious"
+        style={{
+          width: `${summary
+            ? (summary.suspicious / summary.total_transactions) * 100
+            : 0}%`,
+        }}
+      >
+        {summary?.suspicious ?? 0}
+      </div>
+    </div>
+
+    <div className="risk-bar">
+      <span>High Risk</span>
+      <div
+        className="bar high-risk"
+        style={{
+          width: `${summary
+            ? (summary.high_risk / summary.total_transactions) * 100
+            : 0}%`,
+        }}
+      >
+        {summary?.high_risk ?? 0}
+      </div>
+    </div>
+  </div>
+</section>
 <section className="panel">
 
   <h2>Analyze New Transaction</h2>
