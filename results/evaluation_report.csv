@@ -1,0 +1,10 @@
+Metric,Value
+Total Transactions,15000.0
+Detected Anomalies,1800.0
+Anomaly Percentage,12.0
+Normal Transactions,11428.0
+Suspicious Transactions,2458.0
+High Risk Transactions,1114.0
+Average Risk Score,35.87
+Minimum Risk Score,0.03
+Maximum Risk Score,70.3
